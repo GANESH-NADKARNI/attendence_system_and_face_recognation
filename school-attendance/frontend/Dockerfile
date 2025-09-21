@@ -1,0 +1,21 @@
+# Stage 1: Build the React app
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve the application using Nginx
+FROM nginx:stable-alpine
+# Copy the built React app
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# --- ADD THIS LINE AS A FAILSAFE ---
+# Explicitly copy the models folder again to ensure it's there
+COPY --from=build /app/public/models /usr/share/nginx/html/models
+# ------------------------------------
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
