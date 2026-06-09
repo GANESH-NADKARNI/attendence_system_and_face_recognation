@@ -98,8 +98,8 @@ FACE_SERVICE_URL=http://face-service:5001
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/GANESH-NADKARNI/attendence_system_and_face_recognation.git
+cd attendence_system_and_face_recognation
 ```
 
 ### 2. Create Environment File
